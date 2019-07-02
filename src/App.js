@@ -1,26 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Student from './components/Student.jsx';
+import AddStudents from './components/AddStudents.jsx';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      students: ["John", "Michael", "Brian", "Ismail", "Philip"]
+    }
+    this.addStudent = this.addStudent.bind(this);
+  }
+
+  addStudent(name) {
+    this.setState({students: [...this.state.students, name]})
+  }
+
+  render() {
+    let students = this.state.students.map(student => {
+      return <Student name={student} />
+    })
+
+    return (
+      <div className="App">
+        {students}
+        <AddStudents addStudent={this.addStudent} />
+      </div>
+    );
+  }
 }
 
 export default App;
